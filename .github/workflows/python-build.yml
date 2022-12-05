@@ -1,6 +1,3 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
 name: BEEmod 2.4 autobuild
 
 on:
@@ -28,4 +25,7 @@ jobs:
   
     - name: Download FFmpeg
       run: |
+          mkdir ./lib-32
+          mkdir ./lib-64
           curl -0 https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip -o ffmpeg.zip
+          7z x ffmpeg.zip
