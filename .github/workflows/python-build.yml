@@ -38,7 +38,7 @@ jobs:
           copy ./ffmpeg32/bin/ffplay.exe ./lib-32
           copy ./ffmpeg32/bin/ffprobe.exe ./lib-32
           
-          - name: Build BEE2.4
+          - name: Build
             run: |
                  cd BEE2.4/src/
                   pyinstaller --distpath ../dist/64bit/ --workpath ../build_tmp compiler.spec
