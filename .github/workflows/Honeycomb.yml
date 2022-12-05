@@ -38,15 +38,12 @@ jobs:
           copy ./ffmpeg32/bin/ffplay.exe ./lib-32
           copy ./ffmpeg32/bin/ffprobe.exe ./lib-32
           
-          - name: Build
-            run: |
-                 cd BEE2.4/src/
-                  pyinstaller --distpath ../dist/64bit/ --workpath ../build_tmp compiler.spec
-                    pyinstaller --distpath ../dist/64bit/ --workpath ../build_tmp BEE2.spec
-                  pyinstaller --distpath ../dist/32bit/ --workpath ../build_tmp compiler.spec
-                    pyinstaller --distpath ../dist/32bit/ --workpath ../build_tmp BEE2.spec
-                  cd ../  
-                    - uses: actions/upload-artifact@v3
-                  with:
-                       name: my-artifact
-                              path: ./
+    - name: Build
+      run: |
+         cd BEE2.4/src/
+          pyinstaller --distpath ../dist/64bit/ --workpath ../build_tmp compiler.spec
+            pyinstaller --distpath ../dist/64bit/ --workpath ../build_tmp BEE2.spec
+          pyinstaller --distpath ../dist/32bit/ --workpath ../build_tmp compiler.spec
+            pyinstaller --distpath ../dist/32bit/ --workpath ../build_tmp BEE2.spec
+             cd ../  
+                   
