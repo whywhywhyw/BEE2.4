@@ -14,18 +14,34 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.11
+    - name: Set up Python 3.8
       uses: actions/setup-python@v3
       with:
-        python-version: "3.11"
+        python-version: "3.8"
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
   
-    - name: Download FFmpeg
+    - name: Download and extract FFmpeg
       run: |
           mkdir ./lib-32
           mkdir ./lib-64
-          curl -0 https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip -o ffmpeg.zip
-          7z x ffmpeg.zip
+          curl -0 https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip -o ffmpeg64.zip
+          curl -0 https://github.com/sudo-nautilus/FFmpeg-Builds-Win32/releases/download/latest/ffmpeg-master-latest-win32-gpl-shared.zip -o ffmpeg32.zip
+          7z x ffmpeg64.zip
+          7z x ffmpeg32.zip
+          copy ./ffmpeg64/bin/ffmpeg.exe ./lib-64
+          copy ./ffmpeg64/bin/ffplay.exe ./lib-64
+          copy ./ffmpeg64/bin/ffprobe.exe ./lib-64
+          copy ./ffmpeg32/bin/ffmpeg.exe ./lib-32
+          copy ./ffmpeg32/bin/ffplay.exe ./lib-32
+          copy ./ffmpeg32/bin/ffprobe.exe ./lib-32
+          
+          - name: Build BEE2.4
+            run: |
+                 cd BEE2.4/src/
+                  pyinstaller --distpath ../dist/64bit/ --workpath ../build_tmp compiler.spec
+                    pyinstaller --distpath ../dist/64bit/ --workpath ../build_tmp BEE2.spec
+                  pyinstaller --distpath ../dist/32bit/ --workpath ../build_tmp compiler.spec
+                    pyinstaller --distpath ../dist/32bit/ --workpath ../build_tmp BEE2.spec  
