@@ -44,4 +44,9 @@ jobs:
                   pyinstaller --distpath ../dist/64bit/ --workpath ../build_tmp compiler.spec
                     pyinstaller --distpath ../dist/64bit/ --workpath ../build_tmp BEE2.spec
                   pyinstaller --distpath ../dist/32bit/ --workpath ../build_tmp compiler.spec
-                    pyinstaller --distpath ../dist/32bit/ --workpath ../build_tmp BEE2.spec  
+                    pyinstaller --distpath ../dist/32bit/ --workpath ../build_tmp BEE2.spec
+                  cd ../  
+                    - uses: actions/upload-artifact@v3
+                  with:
+                       name: my-artifact
+                              path: ./
