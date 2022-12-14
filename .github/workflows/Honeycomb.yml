@@ -24,7 +24,7 @@ jobs:
         python -m pip install -r requirements.txt
     - name: Build
       run: |
-         cd /src
+         cd ./src
           pyinstaller --distpath ../dist/64bit/ --workpath ../build_tmp compiler.spec
             pyinstaller --distpath ../dist/64bit/ --workpath ../build_tmp BEE2.spec
           pyinstaller --distpath ../dist/32bit/ --workpath ../build_tmp compiler.spec
